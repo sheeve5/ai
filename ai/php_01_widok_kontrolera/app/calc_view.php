@@ -7,17 +7,12 @@
 <body>
 
 <form action="<?php print(_APP_URL);?>/app/calc.php" method="post">
-	<label for="id_x">Liczba 1: </label>
-	<input id="id_x" type="text" name="x" value="<?php if (isset($x)) print($x); ?>" /><br />
-	<label for="id_op">Operacja: </label>
-	<select name="op">
-		<option value="plus">+</option>
-		<option value="minus">-</option>
-		<option value="times">*</option>
-		<option value="div">/</option>
-	</select><br />
-	<label for="id_y">Liczba 2: </label>
-	<input id="id_y" type="text" name="y" value="<?php if (isset($y)) print($y); ?>" /><br />
+	<label for="id_kwota">Kwota: </label>
+	<input id="id_kwota" type="text" name="kwota" value="<?php if (isset($kwota)) print($kwota); ?>" /><br />
+	<label for="id_lata">Lata: </label>
+	<input id="id_lata" type="text" name="lata" value="<?php if (isset($lata)) print($lata); ?>" /><br />
+	<label for="id_procent">Procent: </label>
+	<input id="id_procent" type="text" name="procent" value="<?php if (isset($procent)) print($procent); ?>" /><br />
 	<input type="submit" value="Oblicz" />
 </form>	
 
