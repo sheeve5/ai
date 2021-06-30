@@ -8,37 +8,44 @@ require_once dirname(__FILE__).'/../config.php';
 
 // 1. pobranie parametrów
 
-$x = $_REQUEST ['x'];
-$y = $_REQUEST ['y'];
-$operation = $_REQUEST ['op'];
+$kwota = $_REQUEST ['kwota'];
+$lata = $_REQUEST ['lata'];
+$procent = $_REQUEST ['procent'];
 
 // 2. walidacja parametrów z przygotowaniem zmiennych dla widoku
 
 // sprawdzenie, czy parametry zostały przekazane
-if ( ! (isset($x) && isset($y) && isset($operation))) {
+if ( ! (isset($kwota) && isset($lata) && isset($procent))) {
 	//sytuacja wystąpi kiedy np. kontroler zostanie wywołany bezpośrednio - nie z formularza
 	$messages [] = 'Błędne wywołanie aplikacji. Brak jednego z parametrów.';
 }
 
 // sprawdzenie, czy potrzebne wartości zostały przekazane
-if ( $x == "") {
+if ( $kwota == "") {
 	$messages [] = 'Nie podano liczby 1';
 }
-if ( $y == "") {
+if ( $lata == "") {
 	$messages [] = 'Nie podano liczby 2';
+}
+if ( $procent == "") {
+	$messages [] = 'Nie podano liczby 3';
 }
 
 //nie ma sensu walidować dalej gdy brak parametrów
 if (empty( $messages )) {
 	
 	// sprawdzenie, czy $x i $y są liczbami całkowitymi
-	if (! is_numeric( $x )) {
+	if (! is_numeric( $kwota )) {
 		$messages [] = 'Pierwsza wartość nie jest liczbą całkowitą';
 	}
 	
-	if (! is_numeric( $y )) {
+	if (! is_numeric( $lata )) {
 		$messages [] = 'Druga wartość nie jest liczbą całkowitą';
 	}	
+
+	if (! is_numeric( $procent )) {
+		$messages [] = 'Trzecia wartość nie jest liczbą całkowitą';
+	}
 
 }
 
@@ -47,23 +54,13 @@ if (empty( $messages )) {
 if (empty ( $messages )) { // gdy brak błędów
 	
 	//konwersja parametrów na int
-	$x = intval($x);
-	$y = intval($y);
-	
-	//wykonanie operacji
-	switch ($operation) {
-		case 'minus' :
-			$result = $x - $y;
-			break;
-		case 'times' :
-			$result = $x * $y;
-			break;
-		case 'div' :
-			$result = $x / $y;
-			break;
-		default :
-			$result = $x + $y;
-			break;
+	$kwota = floatval($kwota);
+	$lata = floatval($lata);
+	$procent= floatval($procent);
+
+	$result=$kwota;
+	for($i = 0; $i<$lata; $i++){
+	    $result = $result*(1+($procent/100));
 	}
 }
 
